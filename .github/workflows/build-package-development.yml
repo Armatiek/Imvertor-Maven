@@ -5,6 +5,8 @@ name: Build and Package development branch
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron:  '25 16 * * *'
   release:
     types: [created]
 
