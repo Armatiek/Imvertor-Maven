@@ -5,6 +5,8 @@ name: Build and Package master branch
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron:  '55 2 * * *'
   release:
     types: [created]
 
