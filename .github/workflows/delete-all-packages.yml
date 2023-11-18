@@ -3,7 +3,7 @@ name: Delete all Packages
 on:
   workflow_dispatch:
   schedule:
-    - cron:  '35 2 * * *'
+    - cron: '35 2 * * *'
   release:
     types: [created]
 
