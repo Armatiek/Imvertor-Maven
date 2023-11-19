@@ -38,10 +38,10 @@ jobs:
       run: mvn -B package --file pom.xml
 
     - name: Extract Maven project version
-      run: echo "version::$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)" >> $GITHUB_OUTPUT
+      run: echo "maven_version=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)" >> "$GITHUB_ENV"
 
     - name: Show extracted Maven project version
-      run: echo ${{ steps.project.outputs.version }}
+      run: printf '%s\n' "$maven_version"
 
     - name: Publish to GitHub Packages Apache Maven
       run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml
