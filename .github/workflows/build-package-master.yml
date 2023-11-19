@@ -43,6 +43,30 @@ jobs:
     - name: Show extracted Maven project version
       run: printf '%s\n' "$maven_version"
 
+    - name: Delete package version
+      uses: actions/github-script@v7
+      id: delete-package-version
+      with:
+        script: |
+          const versionInfo = await github.rest.packages.getAllPackageVersionsForPackageOwnedByOrg({
+            package_type: 'maven',
+            package_name: 'imvertor_arm.imvertor_arm',
+            org: 'Armatiek',
+          })
+          
+          const versions = versionInfo.data
+          for (const version of versions) {
+            if (version.name == {{ $maven_version }}) {
+              console.log(version.id)
+              await github.rest.packages.deletePackageVersionForOrg({
+                package_type: 'maven',
+                package_name: 'imvertor_arm.imvertor_arm',
+                org: 'Armatiek',
+                package_version_id: version.id,
+              });
+            }
+          }
+
     - name: Publish to GitHub Packages Apache Maven
       run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml
       env:
