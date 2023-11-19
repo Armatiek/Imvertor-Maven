@@ -26,7 +26,7 @@ jobs:
               package_type: 'maven',
               package_name: 'imvertor_arm.imvertor_arm',
               org: 'Armatiek' ,
-            })
+            }))
            .then((versions) => {
              for (const version of versions) {
                if (version.name == '3.0.0') {
