@@ -24,19 +24,9 @@ jobs:
             package_name: 'imvertor_arm.imvertor_arm',
             org: 'Armatiek',
           })
-          console.log(versions.data)
-          github
-            .paginate(github.rest.packages.getAllPackageVersionsForPackageOwnedByOrg({
-              package_type: 'maven',
-              package_name: 'imvertor_arm.imvertor_arm',
-              org: 'Armatiek',
-            }))
-           .then((versions) => {
-             for (const version of versions) {
-               console.log(version)
-               if (version.name == '3.0.0') {
-                 console.log(version.id)
-              }
+          for (const version of versions) {
+            if (version.name == '3.0.0') {
+              console.log(version.id)
             }
-          })
-        
+          }
+          
