@@ -52,23 +52,35 @@ jobs:
       id: delete-package-version
       with:
         script: |
+          const packageName = process.env.maven_groupId + '.' + process.env.maven_artifactId 
+          const org = context.repo.owner 
           const versionInfo = await github.rest.packages.getAllPackageVersionsForPackageOwnedByOrg({
             package_type: 'maven',
-            package_name: 'imvertor_arm.imvertor_arm',
-            org: 'Armatiek',
+            package_name: packageName,
+            org: org,
           })
           
-          console.log('Owner: ' + context.repo.owner)
           const versions = versionInfo.data
           for (const version of versions) {
             if (version.name == process.env.maven_version) {
-              console.log(version.id)
-              await github.rest.packages.deletePackageVersionForOrg({
-                package_type: 'maven',
-                package_name: 'imvertor_arm.imvertor_arm',
-                org: 'Armatiek',
-                package_version_id: version.id,
-              });
+              /* This version has the maven version we want to delete: */
+              if (versions.length == 1) {
+                /* This version is the last version of the package so we have to delete the complete package: */
+                await github.rest.packages.deletePackageForOrg({
+                  package_type: 'maven',
+                  package_name: packageName,
+                  org: context.repo.owner,
+                });
+              } else {
+                /* Remove this version from the package: */
+                await github.rest.packages.deletePackageVersionForOrg({
+                  package_type: 'maven',
+                  package_name: packageName,
+                  org: context.repo.owner,
+                  package_version_id: org,
+                });
+              }
+              break;
             }
           }
 
