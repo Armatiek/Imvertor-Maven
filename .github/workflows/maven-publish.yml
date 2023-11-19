@@ -19,13 +19,13 @@ jobs:
       id: get-versions
       with:
         script: |
-          const versions = await github.rest.packages.getAllPackageVersionsForPackageOwnedByOrg({
+          const versionInfo = await github.rest.packages.getAllPackageVersionsForPackageOwnedByOrg({
             package_type: 'maven',
             package_name: 'imvertor_arm.imvertor_arm',
             org: 'Armatiek',
           })
-          console.log(versions)
-          console.log(versions[0])
+          console.log(versionInfo)
+          const versions = versionInfo.data
           for (const version of versions) {
             if (version.name == '3.0.0') {
               console.log(version.id)
