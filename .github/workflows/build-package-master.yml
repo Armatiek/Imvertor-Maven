@@ -37,11 +37,15 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file pom.xml
 
+    - name: Extract Maven project groupId
+      run: echo "maven_groupId=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.groupId}' --non-recursive exec:exec)" >> "$GITHUB_ENV"
+    - name: Extract Maven project artifactId
+      run: echo "maven_artifactId=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.artifactId}' --non-recursive exec:exec)" >> "$GITHUB_ENV"
     - name: Extract Maven project version
       run: echo "maven_version=$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)" >> "$GITHUB_ENV"
-
-    - name: Show extracted Maven project version
-      run: printf '%s\n' "$maven_version"
+      
+    - name: Show extracted Maven project groupId, artifactId, version
+      run: printf '%s\n' "$maven_groupId" "$maven_artifactId" "$maven_version"
 
     - name: Delete package version
       uses: actions/github-script@v7
@@ -54,6 +58,7 @@ jobs:
             org: 'Armatiek',
           })
           
+          console.log('Owner: ' + context.repo.owner)
           const versions = versionInfo.data
           for (const version of versions) {
             if (version.name == process.env.maven_version) {
