@@ -19,11 +19,13 @@ jobs:
       id: get-versions
       with:
         script: |
-          const versions = await github.rest.packages.getAllPackageVersionsForPackageOwnedByOrg({
+          const result = github.rest.packages.getAllPackageVersionsForPackageOwnedByOrg({
             package_type: 'maven',
             package_name: 'imvertor_arm.imvertor_arm',
             org: 'Armatiek',
           })
+          const versions = await github.paginate(result)
+          
           console.log(versions)
           github
             .paginate(github.rest.packages.getAllPackageVersionsForPackageOwnedByOrg({
