@@ -27,6 +27,7 @@ jobs:
             }))
            .then((versions) => {
              for (const version of versions) {
+               console.log(version)
                if (version.name == '3.0.0') {
                  console.log(version.id)
               }
