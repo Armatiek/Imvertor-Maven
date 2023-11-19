@@ -10,6 +10,6 @@ jobs:
       - name: Purge workflow runs
         uses: boredland/action-purge-workflow-runs@main
         with:
-          days-old: 1
+          days-old: 5
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
