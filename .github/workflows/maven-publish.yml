@@ -24,8 +24,8 @@ jobs:
             package_name: 'imvertor_arm.imvertor_arm',
             org: 'Armatiek',
           })
-          console(versions)
-          console(versions[0])
+          console.log(versions)
+          console.log(versions[0])
           for (const version of versions) {
             if (version.name == '3.0.0') {
               console.log(version.id)
