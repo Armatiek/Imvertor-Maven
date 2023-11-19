@@ -2,7 +2,7 @@ name: Purge workflow runs
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 */2 * * *'
+    - cron: '45 3 * * *'
 jobs:
   cleanup:
     runs-on: ubuntu-latest
