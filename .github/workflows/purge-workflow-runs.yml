@@ -1,0 +1,15 @@
+name: Purge workflow runs
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 */2 * * *'
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Purge workflow runs
+        uses: boredland/action-purge-workflow-runs@main
+        with:
+          days-old: 1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
