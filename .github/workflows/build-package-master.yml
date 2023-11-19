@@ -56,7 +56,7 @@ jobs:
           
           const versions = versionInfo.data
           for (const version of versions) {
-            if (version.name == {{ $maven_version }}) {
+            if (version.name == process.env.maven_version) {
               console.log(version.id)
               await github.rest.packages.deletePackageVersionForOrg({
                 package_type: 'maven',
