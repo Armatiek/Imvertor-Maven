@@ -1,4 +1,4 @@
-name: Delete all Packages 2
+name: Get package versions
 
 on:
   workflow_dispatch:
@@ -14,11 +14,16 @@ jobs:
       packages: write
 
     steps:
-    - name: Delete all Packages 2
-      uses: actions/delete-package-versions@v4
-      with: 
-        package-name: 'imvertor_arm.imvertor.arm'
-        package-type: 'maven'
-        min-versions-to-keep: 0
-        token: ${{ secrets.GITHUB_TOKEN }}
-        ignore-versions: '^(?!3\.0\.0$)'
+    - name: Get package versions
+      uses: actions/github-script@v7
+      id: get-versions
+      with:
+        result-encoding: string
+        retries: 3
+        script: |
+          const versions = octokit.rest.packages.getAllPackageVersionsForPackageOwnedByOrg({
+            package_type,
+            'imvertor_arm.imvertor_arm',
+            'Armatiek',
+          });
+          console.log(versions)
