@@ -24,6 +24,6 @@ jobs:
           const versions = octokit.rest.packages.getAllPackageVersionsForPackageOwnedByOrg({
             package_type,
             'imvertor_arm.imvertor_arm',
-            'Armatiek',
-          });
+            'Armatiek'
+          })
           console.log(versions)
