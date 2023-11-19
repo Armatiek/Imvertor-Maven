@@ -22,8 +22,8 @@ jobs:
         retries: 3
         script: |
           const versions = github.rest.packages.getAllPackageVersionsForPackageOwnedByOrg({
-            'maven',
-            'imvertor_arm.imvertor_arm',
-            'Armatiek'
+            package_type: 'maven',
+            package_name: 'imvertor_arm.imvertor_arm',
+            org: 'Armatiek' ,
           })
           console.log(versions)
