@@ -21,7 +21,7 @@ jobs:
         result-encoding: string
         retries: 3
         script: |
-          const versions = octokit.rest.packages.getAllPackageVersionsForPackageOwnedByOrg({
+          const versions = github.rest.packages.getAllPackageVersionsForPackageOwnedByOrg({
             package_type,
             'imvertor_arm.imvertor_arm',
             'Armatiek'
