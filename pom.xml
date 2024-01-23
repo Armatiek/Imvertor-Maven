@@ -381,6 +381,7 @@
               <!--
               <finalName>imvertor_mk-1-SNAPSHOT-jar-with-dependencies</finalName>
               -->
+              <minimizeJar>true</minimizeJar>
               <transformers>
                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                   <mainClass>nl.imvertor.ChainTranslateAndReport</mainClass>
@@ -388,6 +389,24 @@
                 <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
               </transformers>
               <filters>
+                <filter>
+                  <artifact>org.eclipse.birt.runtime.3_7_1:org.apache.xerces</artifact>
+                  <includes>
+                    <include>**</include>
+                  </includes>
+                </filter>
+                <filter>
+                  <artifact>commons-jxpath:commons-jxpath</artifact>
+                  <includes>
+                    <include>**</include>
+                  </includes>
+                </filter>
+                <filter>
+                  <artifact>log4j:log4j</artifact>
+                  <includes>
+                    <include>**</include>
+                  </includes>
+                </filter>
                 <filter>
                   <artifact>*:*</artifact>
                   <excludes>
@@ -397,7 +416,6 @@
                   </excludes>
                 </filter>
               </filters>
-              <minimizeJar>true</minimizeJar>
             </configuration>
           </execution>
         </executions>
